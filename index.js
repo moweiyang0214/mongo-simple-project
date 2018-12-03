@@ -27,6 +27,18 @@ async function  createCourse() {
 }
 
 async function getCourses() {
+  // /api/course?pageNumber=2&pageSize=10
+
+  const pageNumber = 2
+  const pageSize = 10
+
+  const courses = await Course
+  .find()
+  .skip((pageNumber - 1)* pageSize)
+  .limit(pageSize)
+  .sort({name: 1})
+  .select({ name: 1, tags: 1})
+  console.log(courses)
   // comparasion: eq(equal) 
   // ne: not equal 
   // gt: greater than 
@@ -35,7 +47,7 @@ async function getCourses() {
   // lte: less than or equal to
   // in 
   // nin(not in)
-  const courses = await Course
+
   // .find({
   //   author: 'lei',
   //   isPublished: true
@@ -49,18 +61,14 @@ async function getCourses() {
   // .and([{},{}])
   // using regular expression
 
-  // starts with lei
-  .find({author: /^lei/})
+  // // starts with lei
+  // .find({author: /^lei/})
 
-  // ends with i
-  /find({author: /lei$/i })
+  // // ends with i
+  // /find({author: /lei$/i })
 
-  // contains lei
-  .find({author: /.*lei.*/i })
-  .limit(10)
-  .sort({name: 1})
-  .select({ name: 1, tags: 1})
-  console.log(courses)
+  // // contains lei
+  // .find({author: /.*lei.*/i })
 }
 
 getCourses()
