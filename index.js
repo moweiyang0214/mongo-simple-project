@@ -42,7 +42,21 @@ async function getCourses() {
   // })
   // .find({price : {$gte: 10} })
   // .find({price: {$gte: 10, $lte: 20} })
-  .find({ price: {$in: [10,15,20]} })
+  // .find({ price: {$in: [10,15,20]} })
+  // 
+  // .find()
+  // .or([ {author: 'lei'}, {isPublished: true}])
+  // .and([{},{}])
+  // using regular expression
+
+  // starts with lei
+  .find({author: /^lei/})
+
+  // ends with i
+  /find({author: /lei$/i })
+
+  // contains lei
+  .find({author: /.*lei.*/i })
   .limit(10)
   .sort({name: 1})
   .select({ name: 1, tags: 1})
